@@ -70,39 +70,41 @@
                 <section>
                 <h1> GET </h1>
 
-                <p> Let us get <em> Twitter's public timeline </em> </p>
+                <p> Let us get <em> a list of github repos! </em> </p>
 
                 <pre>
-                    <code data-trim contenteditable>
-                require 'json'
+                    <code >
                 require 'httparty'
 
                 include HTTParty
 
+                auth = {:username => ENV["git_user"],
+                        :password => ENV["git_pass"]}
 
-                response =  HTTParty.get("http://rubygems.org/api/v1/versions/httparty.json")
+                response =  HTTParty.get("https://api.github.com/user/repos?", :basic_auth => auth)
 
-                response.first.each do |key,value|
-                    puts "#{key}:#{value}"
-                end
-                    </code>
-                    </pre>
+                puts response
+                </code>
+                </pre>
                 </section>
                 <section>
-                <h1> POST </h1>
+                <h1> GET </h1>
 
-                <p> Let us make a<em> Call</em> </p>
+                <p> How about some public events? </p>
 
                 <pre>
-                    <code data-trim contenteditable>
-                require 'json'
-                require 'httparty'
+                    <code >
 
-                include HTTParty
+                    require 'httparty'
 
+                    include HTTParty
 
-                response =  HTTParty.post("http://rubygems.org/api/v1/versions/httparty.json")
+                    auth = {:username => ENV["git_user"],
+                            :password => ENV["git_pass"]}
 
+                    events =  HTTParty.get("https://api.github.com/events", :basic_auth => auth)
+
+                    puts events
                     </code>
                     </pre>
                 </section>
